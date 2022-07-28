@@ -1,5 +1,7 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
+import { FETCH_CURRENCIES_SUCCESS } from '../actions';
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -9,8 +11,11 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  // case 'value':
-  //   return;
+  case FETCH_CURRENCIES_SUCCESS:
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
   default:
     return state;
   }

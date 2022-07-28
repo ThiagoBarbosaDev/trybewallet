@@ -1,3 +1,4 @@
 // Coloque aqui suas actions
 export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS';
+export const FETCH_CURRENCIES_FAILURE = 'FETCH_CURRENCIES_FAILURE';
