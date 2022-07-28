@@ -8,7 +8,7 @@ class Wallet extends React.Component {
         <Header />
         TrybeWallet
       </div>
-    )
+    );
   }
 }
 
