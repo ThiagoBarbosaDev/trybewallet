@@ -1,9 +1,43 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Header extends Component {
+class Header extends Component {
   render() {
+    const { email, expenses } = this.props;
     return (
-      <div>Header</div>
+      <header>
+        <section>
+          <p data-testid="email-field">{email}</p>
+          <p>
+            <span data-testid="total-field">{expenses.length ? '$$$' : 0}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </p>
+        </section>
+      </header>
     );
   }
 }
+
+const mapStateToProps = ({ wallet: { expenses }, user: { email } }) => ({
+  email,
+  expenses,
+});
+
+Header.propTypes = {
+  email: PropTypes.string,
+}.isRequired;
+
+export default connect(mapStateToProps, null)(Header);
+
+// {
+//   user: {
+//     email: '', // string que armazena o email da pessoa usuária
+//   },
+//   wallet: {
+//     currencies: [], // array de string
+//     expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
+//     editor: false, // valor booleano que indica de uma despesa está sendo editada
+//     idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
+//   }
+// }
