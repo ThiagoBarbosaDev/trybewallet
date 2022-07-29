@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
-  sumExpenses = () => {
+  sumExpensesAdjustedToBRL = () => {
     const { expenses } = this.props;
-    const float = 10000;
     const sum = expenses
-      .reduce((acc, cv) => (parseInt(cv.value, 10)
-      * (parseFloat(cv.exchangeRates[cv.currency].ask) * float)) + acc, 0);
-    const finalAdjustedSum = (sum / float).toFixed(2);
-    return finalAdjustedSum;
+      .reduce((acc, cv) => {
+        const value = parseInt(cv.value, 10);
+        const exchangeRate = parseFloat(cv.exchangeRates[cv.currency].ask);
+        return (value * exchangeRate) + acc;
+      }, 0);
+    return sum.toFixed(2);
   }
 
   render() {
@@ -21,7 +22,7 @@ class Header extends Component {
           <p data-testid="email-field">{email}</p>
           <p>
             <span data-testid="total-field">
-              {expenses.length ? this.sumExpenses() : 0}
+              {expenses.length ? this.sumExpensesAdjustedToBRL() : 0}
             </span>
             <span data-testid="header-currency-field">BRL</span>
           </p>
