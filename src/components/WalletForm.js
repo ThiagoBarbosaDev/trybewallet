@@ -6,6 +6,7 @@ import Combobox from './ComboBox';
 import Input from './Input';
 import Button from './Button';
 import addExpenseThunk from '../redux/actions/addExpenseThunk';
+import sendEditExpenseThunk from '../redux/actions/sendEditExpenseAction';
 
 const EXPENDITURE_TAGS = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const PAYMENT_OPTIONS = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -29,6 +30,15 @@ class WalletForm extends Component {
     this.updateCurrencyInput();
   }
 
+  componentDidUpdate() {
+
+  }
+
+  // updateState = () => {
+  //   const { dataToEdit: { value, currency, description, method, tag} } = this.props;
+  //   setState({});
+  // }
+
   updateCurrencyInput = async () => {
     const { fetchCurrencies } = this.props;
     fetchCurrencies();
@@ -36,7 +46,7 @@ class WalletForm extends Component {
 
   handleInput = ({ target: { value, name } }) => this.setState({ [name]: value });
 
-  handleClick = () => {
+  handleAddExpense = () => {
     const { addExpense } = this.props;
     addExpense(this.state);
     this.setState({ ...INITIAL_STATE });
@@ -45,7 +55,7 @@ class WalletForm extends Component {
   render() {
     const { value, description, tag, method,
       currency } = this.state;
-    const { currencies } = this.props;
+    const { currencies, idToEdit, sendEditData, isEditting } = this.props;
     return (
       <div>
         <Input
@@ -85,22 +95,35 @@ class WalletForm extends Component {
           data={ PAYMENT_OPTIONS }
           onChange={ (event) => this.handleInput(event) }
         />
-        <Button
-          onClick={ () => this.handleClick() }
-        >
-          Adicionar Despesa
-        </Button>
+        { isEditting ? (
+          <Button
+            onClick={ () => sendEditData(this.state) }
+          >
+            Editar Despesa
+          </Button>
+        ) : (
+          <Button
+            onClick={ () => this.handleAddExpense(idToEdit) }
+          >
+            Adicionar Despesa
+          </Button>
+        )}
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ wallet: { currencies } }) => ({
+const mapStateToProps = ({ wallet: { currencies, idToEdit,
+  isEditting, dataToEdit } }) => ({
   currencies,
+  idToEdit,
+  isEditting,
+  dataToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
+  sendEditData: (payload) => dispatch(sendEditExpenseThunk(payload)),
   addExpense: (payload) => dispatch(addExpenseThunk(payload)),
 });
 

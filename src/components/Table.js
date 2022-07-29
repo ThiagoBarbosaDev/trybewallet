@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import removeExpenseAction from '../redux/actions/removeExpenseAction';
+import requestEditExpenseAction from '../redux/actions/requestEditExpenseAction';
 
 const convertExpenseToBRL = (expense, rate) => (expense * rate).toFixed(2);
 
 class Table extends Component {
   renderExpenses = () => {
-    const { expenses, removeExpense } = this.props;
+    const { expenses, removeExpense, requestEditExpense } = this.props;
     return expenses.map(
       ({ id, description, tag, method, value, currency, exchangeRates }) => {
         const exchangeRate = exchangeRates[currency].ask;
@@ -30,7 +31,13 @@ class Table extends Component {
                 dataTestId="delete-btn"
                 onClick={ () => removeExpense(id) }
               >
-                Editar/Excluir
+                Excluir
+              </Button>
+              <Button
+                dataTestId="edit-btn"
+                onClick={ () => requestEditExpense(id) }
+              >
+                Editar
               </Button>
             </td>
           </tr>
@@ -72,6 +79,7 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   removeExpense: (payload) => dispatch(removeExpenseAction(payload)),
+  requestEditExpense: (payload) => dispatch(requestEditExpenseAction(payload)),
 });
 
 Table.propTypes = {
