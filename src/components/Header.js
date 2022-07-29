@@ -22,7 +22,9 @@ class Header extends Component {
           <p data-testid="email-field">{email}</p>
           <p>
             <span data-testid="total-field">
-              {expenses.length ? this.sumExpensesAdjustedToBRL() : 0}
+              {expenses.length
+                ? this.sumExpensesAdjustedToBRL()
+                : parseFloat(0).toFixed(2)}
             </span>
             <span data-testid="header-currency-field">BRL</span>
           </p>

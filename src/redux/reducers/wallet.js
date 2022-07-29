@@ -1,6 +1,6 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
-import { ADD_EXPENSE, FETCH_CURRENCIES_SUCCESS } from '../actions';
+import { ADD_EXPENSE, FETCH_CURRENCIES_SUCCESS, REMOVE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,6 +22,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, { id: state.expenseId, ...action.payload }],
       expenseId: state.expenseId + 1,
+    };
+  case REMOVE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.payload),
     };
   default:
     return state;

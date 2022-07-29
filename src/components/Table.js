@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from './Button';
+import removeExpenseAction from '../redux/actions/removeExpenseAction';
 
 const convertExpenseToBRL = (expense, rate) => (expense * rate).toFixed(2);
 
 class Table extends Component {
   renderExpenses = () => {
-    const { expenses } = this.props;
+    const { expenses, removeExpense } = this.props;
     return expenses.map(
       ({ id, description, tag, method, value, currency, exchangeRates }) => {
         const exchangeRate = exchangeRates[currency].ask;
@@ -23,7 +25,14 @@ class Table extends Component {
             <td>{ adjustedExchangeRate }</td>
             <td>{ convertExpenseToBRL(value, exchangeRate) }</td>
             <td>{ currency }</td>
-            <td>Editar/Excluir</td>
+            <td>
+              <Button
+                dataTestId="delete-btn"
+                onClick={ () => removeExpense(id) }
+              >
+                Editar/Excluir
+              </Button>
+            </td>
           </tr>
         );
       },
@@ -33,7 +42,7 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <div>
+      <table>
         <thead>
           <tr>
             <th>Descrição</th>
@@ -52,7 +61,7 @@ class Table extends Component {
             { this.renderExpenses() }
           </tbody>
         )}
-      </div>
+      </table>
     );
   }
 }
@@ -61,8 +70,12 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
   expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  removeExpense: (payload) => dispatch(removeExpenseAction(payload)),
+});
+
 Table.propTypes = {
   expenses: PropTypes.shape({}),
 }.isRequired;
 
-export default connect(mapStateToProps, null)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
