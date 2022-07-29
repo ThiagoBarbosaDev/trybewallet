@@ -1,6 +1,4 @@
-import { FETCH_CURRENCIES_SUCCESS } from '.';
-
-const ENDPOINT = 'https://economia.awesomeapi.com.br/json/all';
+import { ENDPOINT, FETCH_CURRENCIES_SUCCESS } from '.';
 
 const fetchCurrenciesSuccess = (currencies) => ({
   type: FETCH_CURRENCIES_SUCCESS,

@@ -1,12 +1,13 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
-import { FETCH_CURRENCIES_SUCCESS } from '../actions';
+import { ADD_EXPENSE, FETCH_CURRENCIES_SUCCESS } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   editor: false,
   idToEdit: 0,
+  expenseId: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,12 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.currencies,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, { id: state.expenseId, ...action.payload }],
+      expenseId: state.expenseId + 1,
     };
   default:
     return state;

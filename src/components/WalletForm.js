@@ -4,19 +4,24 @@ import PropTypes from 'prop-types';
 import fetchCurrenciesThunk from '../redux/actions/fetchFiatThunk';
 import Combobox from './ComboBox';
 import Input from './Input';
+import Button from './Button';
+import addExpenseThunk from '../redux/actions/addExpenseThunk';
 
 const EXPENDITURE_TAGS = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const PAYMENT_OPTIONS = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const INITIAL_STATE = {
+  value: '',
+  description: '',
+  currency: 'USD',
+  method: 'Dinheiro',
+  tag: 'Alimentação',
+};
 
 class WalletForm extends Component {
   constructor() {
     super();
     this.state = {
-      valueInput: '0',
-      descriptionInput: '',
-      currencyInput: 'USD',
-      methodInput: 'Dinheiro',
-      tagInput: 'Alimentação',
+      ...INITIAL_STATE,
     };
   }
 
@@ -31,50 +36,61 @@ class WalletForm extends Component {
 
   handleInput = ({ target: { value, name } }) => this.setState({ [name]: value });
 
+  handleClick = () => {
+    const { addExpense } = this.props;
+    addExpense(this.state);
+    this.setState({ ...INITIAL_STATE });
+  }
+
   render() {
-    const { valueInput, descriptionInput, tagInput, methodInput,
-      currencyInput } = this.state;
+    const { value, description, tag, method,
+      currency } = this.state;
     const { currencies } = this.props;
     return (
       <div>
         WalletForm
         <Input
-          name="valueInput"
+          name="value"
           type="number"
-          value={ valueInput }
+          value={ value }
           data-testid="value-input"
           onChange={ (event) => this.handleInput(event) }
           label="Valor:"
         />
         <Input
-          name="descriptionInput"
+          name="description"
           type="text"
-          value={ descriptionInput }
+          value={ description }
           data-testid="description-input"
           onChange={ (event) => this.handleInput(event) }
           label="description:"
         />
         <Combobox
-          name="currencyInput"
-          value={ currencyInput }
+          name="currency"
+          value={ currency }
           dataTestId="currency-input"
           data={ currencies }
           onChange={ (event) => this.handleInput(event) }
         />
         <Combobox
-          name="tagInput"
-          value={ tagInput }
+          name="tag"
+          value={ tag }
           dataTestId="tag-input"
           data={ EXPENDITURE_TAGS }
           onChange={ (event) => this.handleInput(event) }
         />
         <Combobox
-          name="methodInput"
-          value={ methodInput }
+          name="method"
+          value={ method }
           dataTestId="method-input"
           data={ PAYMENT_OPTIONS }
           onChange={ (event) => this.handleInput(event) }
         />
+        <Button
+          onClick={ () => this.handleClick() }
+        >
+          Adicionar Despesa
+        </Button>
       </div>
     );
   }
@@ -86,6 +102,7 @@ const mapStateToProps = ({ wallet: { currencies } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(fetchCurrenciesThunk()),
+  addExpense: (payload) => dispatch(addExpenseThunk(payload)),
 });
 
 WalletForm.propTypes = {
