@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 
 class Input extends React.Component {
   render() {
-    const { dataTestId, placeholder, className, breakpage, label,
+    const { dataTestId, placeholder, className, label,
       children, type, name, value, checked, ...otherProps } = this.props;
     return (
       <label htmlFor={ `input-${name}` }>
         { label }
-        { breakpage && <br /> }
         { children }
         <input
           data-testid={ dataTestId }

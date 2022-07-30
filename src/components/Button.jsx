@@ -8,7 +8,7 @@ class Button extends React.Component {
       <button
         className={ className }
         data-testid={ dataTestId }
-        type={ type === 'button' ? 'button' : 'submit' }
+        type="button"
         { ...otherProps }
       >
         { children }
