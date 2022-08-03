@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styles from './Login.module.scss';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import loginAction from '../redux/actions/loginAction';
@@ -48,30 +49,31 @@ class Login extends React.Component {
     const { inputEmail, password, isButtonDisabled } = this.state;
 
     return (
-      <div>
-        Login
-        <Input
-          name="inputEmail"
-          type="email"
-          value={ inputEmail }
-          data-testid="email-input"
-          onChange={ (event) => this.handleInput(event) }
-          label="Email:"
-        />
-        <Input
-          name="password"
-          type="password"
-          value={ password }
-          data-testid="password-input"
-          onChange={ (event) => this.handleInput(event) }
-          label="Password:"
-        />
-        <Button
-          onClick={ () => this.onLoginClick() }
-          disabled={ isButtonDisabled }
-        >
-          Entrar
-        </Button>
+      <div className={ styles.wrapper }>
+        <div className={ styles.container }>
+          <Input
+            name="inputEmail"
+            type="email"
+            value={ inputEmail }
+            data-testid="email-input"
+            onChange={ (event) => this.handleInput(event) }
+            placeholder="Email"
+          />
+          <Input
+            name="password"
+            type="password"
+            value={ password }
+            data-testid="password-input"
+            onChange={ (event) => this.handleInput(event) }
+            placeholder="Password"
+          />
+          <Button
+            onClick={ () => this.onLoginClick() }
+            disabled={ isButtonDisabled }
+          >
+            Entrar
+          </Button>
+        </div>
       </div>
     );
   }

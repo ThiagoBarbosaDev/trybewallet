@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 class Combobox extends React.Component {
   render() {
-    const { value, onChange, data, name, dataTestId, ...otherProps } = this.props;
+    const { value, onChange, data, name, dataTestId, className, ...otherProps } = this.props;
     return (
       <select
+        className={ className }
         data-testid={ dataTestId }
         name={ name }
         value={ value }

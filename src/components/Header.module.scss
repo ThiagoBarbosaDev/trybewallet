@@ -1,0 +1,13 @@
+.container {
+  height: 100%;
+  background-color: brown;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.05em;
+}

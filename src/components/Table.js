@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import styles from './Header.module.scss';
 import removeExpenseAction from '../redux/actions/removeExpenseAction';
 import requestEditExpenseAction from '../redux/actions/requestEditExpenseAction';
 

@@ -75,6 +75,7 @@ class WalletForm extends Component {
           label="description:"
         />
         <Combobox
+          className="custom-select custom-select-lg mb-3"
           name="currency"
           value={ currency }
           dataTestId="currency-input"
@@ -97,12 +98,14 @@ class WalletForm extends Component {
         />
         { isEditting ? (
           <Button
+            className="btn btn-primary"
             onClick={ () => sendEditData(this.state) }
           >
             Editar Despesa
           </Button>
         ) : (
           <Button
+            className="btn btn-primary"
             onClick={ () => this.handleAddExpense(idToEdit) }
           >
             Adicionar Despesa

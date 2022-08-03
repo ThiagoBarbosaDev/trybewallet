@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import styles from './Header.module.scss';
 
 class Header extends Component {
   sumExpensesAdjustedToBRL = () => {
@@ -17,8 +18,8 @@ class Header extends Component {
   render() {
     const { email, expenses } = this.props;
     return (
-      <header>
-        <section>
+      <header className={ styles.container }>
+        <section className={ styles.wrapper }>
           <p data-testid="email-field">{email}</p>
           <p>
             <span data-testid="total-field">
