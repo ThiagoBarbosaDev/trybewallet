@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import styles from './Header.module.scss';
 import removeExpenseAction from '../redux/actions/removeExpenseAction';
 import requestEditExpenseAction from '../redux/actions/requestEditExpenseAction';
+import styles from './Table.module.scss';
 
 const convertExpenseToBRL = (expense, rate) => (expense * rate).toFixed(2);
 
@@ -27,14 +27,16 @@ class Table extends Component {
             <td>{ adjustedExchangeRate }</td>
             <td>{ convertExpenseToBRL(value, exchangeRate) }</td>
             <td>{ currency }</td>
-            <td>
+            <td className={ styles['button-container'] }>
               <Button
+                className="btn btn-danger"
                 dataTestId="delete-btn"
                 onClick={ () => removeExpense(id) }
               >
                 Excluir
               </Button>
               <Button
+                className="btn btn-warning"
                 dataTestId="edit-btn"
                 onClick={ () => requestEditExpense(id) }
               >
@@ -50,9 +52,9 @@ class Table extends Component {
   render() {
     const { expenses } = this.props;
     return (
-      <table>
+      <table className="container">
         <thead>
-          <tr>
+          <tr className={ styles['table-head'] }>
             <th>Descrição</th>
             <th>Tag</th>
             <th>Método de pagamento</th>

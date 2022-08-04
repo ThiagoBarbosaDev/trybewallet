@@ -20,8 +20,8 @@ class Header extends Component {
     return (
       <header className={ styles.container }>
         <section className={ styles.wrapper }>
-          <p data-testid="email-field">{email}</p>
-          <p>
+          <p data-testid="email-field" className={ styles.header }>{email}</p>
+          <p className={ styles.header }>
             <span data-testid="total-field">
               {expenses.length
                 ? this.sumExpensesAdjustedToBRL()

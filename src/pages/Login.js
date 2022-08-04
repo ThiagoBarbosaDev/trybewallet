@@ -52,6 +52,7 @@ class Login extends React.Component {
       <div className={ styles.wrapper }>
         <div className={ styles.container }>
           <Input
+            className="form-control"
             name="inputEmail"
             type="email"
             value={ inputEmail }
@@ -60,6 +61,7 @@ class Login extends React.Component {
             placeholder="Email"
           />
           <Input
+            className="form-control"
             name="password"
             type="password"
             value={ password }
@@ -68,6 +70,7 @@ class Login extends React.Component {
             placeholder="Password"
           />
           <Button
+            className="btn btn-primary"
             onClick={ () => this.onLoginClick() }
             disabled={ isButtonDisabled }
           >

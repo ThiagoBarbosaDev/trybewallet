@@ -7,6 +7,7 @@ import Input from './Input';
 import Button from './Button';
 import addExpenseThunk from '../redux/actions/addExpenseThunk';
 import sendEditExpenseThunk from '../redux/actions/sendEditExpenseAction';
+import styles from './WalletForm.module.scss';
 
 const EXPENDITURE_TAGS = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 const PAYMENT_OPTIONS = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -57,8 +58,10 @@ class WalletForm extends Component {
       currency } = this.state;
     const { currencies, idToEdit, sendEditData, isEditting } = this.props;
     return (
-      <div>
+      <div className="container">
         <Input
+          placeholder="Valor"
+          className={ `form-control ${styles['text-input']}` }
           name="value"
           type="number"
           value={ value }
@@ -67,6 +70,8 @@ class WalletForm extends Component {
           label="Valor:"
         />
         <Input
+          placeholder="Descrição"
+          className={ `form-control ${styles['text-input']}` }
           name="description"
           type="text"
           value={ description }
@@ -75,7 +80,7 @@ class WalletForm extends Component {
           label="description:"
         />
         <Combobox
-          className="custom-select custom-select-lg mb-3"
+          className="form-select form-select-lg mb-3"
           name="currency"
           value={ currency }
           dataTestId="currency-input"
@@ -83,6 +88,7 @@ class WalletForm extends Component {
           onChange={ (event) => this.handleInput(event) }
         />
         <Combobox
+          className="form-select form-select-lg mb-3"
           name="tag"
           value={ tag }
           dataTestId="tag-input"
@@ -90,6 +96,7 @@ class WalletForm extends Component {
           onChange={ (event) => this.handleInput(event) }
         />
         <Combobox
+          className="form-select form-select-lg mb-3"
           name="method"
           value={ method }
           dataTestId="method-input"
@@ -98,14 +105,14 @@ class WalletForm extends Component {
         />
         { isEditting ? (
           <Button
-            className="btn btn-primary"
+            className={ `btn btn-primary ${styles.button}` }
             onClick={ () => sendEditData(this.state) }
           >
             Editar Despesa
           </Button>
         ) : (
           <Button
-            className="btn btn-primary"
+            className={ `btn btn-primary ${styles.button}` }
             onClick={ () => this.handleAddExpense(idToEdit) }
           >
             Adicionar Despesa
